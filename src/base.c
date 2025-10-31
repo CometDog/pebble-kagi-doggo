@@ -57,9 +57,21 @@ BitmapLayer *create_bitmap_layer(GRect bounds, GBitmap *bitmap)
  */
 GPoint get_point_on_circle(int16_t center_x, int16_t center_y, uint16_t radius, uint16_t angle)
 {
-    return GPoint(
-        center_x + (int)(radius * pbl_cos_sin_deg(angle) * SCALE),
-        center_y + (int)(radius * pbl_int_sin_deg(angle) * SCALE));
+    return GPoint(center_x + (int)(radius * pbl_cos_sin_deg(angle) * SCALE),
+                  center_y + (int)(radius * pbl_int_sin_deg(angle) * SCALE));
+}
+
+/**
+ * Get the position for a given minute on the clock face of a specified radius
+ * @param minute The minute (0-59)
+ * @param radius The radius from center to the position
+ * @return GPoint representing the position
+ */
+GPoint get_minute_position(uint8_t minute, uint16_t radius)
+{
+    // Each minute is 6 degrees
+    uint16_t angle = (minute * 6 + 270) % 360;
+    return get_point_on_circle(DISPLAY_CENTER_X, DISPLAY_CENTER_Y, radius, angle);
 }
 
 /**
@@ -71,8 +83,8 @@ GPoint get_point_on_circle(int16_t center_x, int16_t center_y, uint16_t radius, 
  * @param starting_angle Angle from which to draw the trail
  * @param trail_length Length of the trail in degrees
  */
-void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y,
-                           uint16_t radius, uint16_t starting_angle, uint16_t trail_length)
+void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y, uint16_t radius,
+                           uint16_t starting_angle, uint16_t trail_length)
 {
     uint8_t dash_length = 5;
     uint8_t gap_length = 5;
@@ -84,7 +96,8 @@ void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y
     uint16_t start_trail_angle = (starting_angle - trail_length + 360) % 360;
 
     // Draw dashes along the trail
-    for (uint16_t angle = start_trail_angle; angle < start_trail_angle + trail_length; angle += (dash_length + gap_length))
+    for (uint16_t angle = start_trail_angle; angle < start_trail_angle + trail_length;
+         angle += (dash_length + gap_length))
     {
         // Calculate single dash start and end points
         uint16_t dash_start = angle;

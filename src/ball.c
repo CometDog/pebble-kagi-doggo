@@ -20,7 +20,7 @@ GBitmap *kagi_ball_bitmap;
  */
 void update_ball_trail(GContext *context)
 {
-    uint16_t ball_angle = (((get_current_minute() + 1) * 6) + 270) % 360;
+    uint16_t ball_angle = (get_current_minute() * 6 + 270) % 360;
     draw_dashed_arc_trail(context, DISPLAY_CENTER_X, DISPLAY_CENTER_Y, BALL_ORBIT, ball_angle, 90);
 }
 
@@ -49,14 +49,8 @@ void layer_update_ball_trail(Layer *layer, GContext *context)
  */
 void layer_update_ball_position(Layer *layer, GContext *_)
 {
-    uint16_t ball_angle = (((get_current_minute() + 1) * 6) + 270) % 360;
-
-    // Position the ball
-    GPoint ball_pos = get_point_on_circle(DISPLAY_CENTER_X, DISPLAY_CENTER_Y, BALL_ORBIT, ball_angle);
-    layer_set_bounds(layer, GRect(
-                                ball_pos.x - (BALL_SIZE / 2),
-                                ball_pos.y - (BALL_SIZE / 2),
-                                BALL_SIZE, BALL_SIZE));
+    GPoint ball_pos = get_minute_position(get_current_minute(), BALL_ORBIT);
+    layer_set_bounds(layer, GRect(ball_pos.x - (BALL_SIZE / 2), ball_pos.y - (BALL_SIZE / 2), BALL_SIZE, BALL_SIZE));
 }
 
 /**
