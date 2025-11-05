@@ -1,117 +1,156 @@
 {
-    "name": "kagidoggo",
-    "author": "James Downs",
-    "version": "1.1",
-    "keywords": [
-        "pebble-app"
+  "name": "kagidoggo",
+  "author": "James Downs",
+  "version": "1.1",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "prettier:write": "npx prettier . --write"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.2",
+    "@babel/runtime-corejs3": "^7.28.2",
+    "core-js": "^3.44.0",
+    "pebble-clay": "^1.0.4",
+    "pebble-events": "1.2.0",
+    "pebble-packet": "^1.2.0",
+    "regenerator-runtime": "^0.14.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.28.0",
+    "@babel/core": "^7.28.0",
+    "@babel/plugin-transform-runtime": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.27.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "babel-plugin-transform-async-to-promises": "^0.8.18",
+    "prettier": "3.6.2",
+    "rollup": "^4.46.2",
+    "rollup-plugin-string": "^3.0.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.2"
+  },
+  "pebble": {
+    "displayName": "Kagi Doggo",
+    "uuid": "3d080232-3986-46bf-bd02-98361bcec826",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "capabilities": [
+      "configurable"
     ],
-    "private": true,
-    "dependencies": {},
-    "pebble": {
-        "displayName": "Kagi Doggo",
-        "uuid": "3d080232-3986-46bf-bd02-98361bcec826",
-        "sdkVersion": "3",
-        "enableMultiJS": false,
-        "capabilities": [],
-        "targetPlatforms": [
-            "aplite",
-            "basalt",
-            "chalk",
-            "diorite",
-            "emery"
-        ],
-        "watchapp": {
-            "watchface": true
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "darkMode",
+      "theme",
+      "state",
+      "type"
+    ],
+    "resources": {
+      "media": [
+        {
+          "type": "font",
+          "name": "FONT_LUFGA_20",
+          "file": "fonts/lufga-black.ttf"
         },
-        "messageKeys": [],
-        "resources": {
-            "media": [
-                {
-                    "type": "font",
-                    "name": "FONT_LUFGA_20",
-                    "file": "fonts/lufga-black.ttf"
-                },
-                {
-                    "file": "images/doggo-100px-01.png",
-                    "name": "KAGI_DOGGO_01",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-02.png",
-                    "name": "KAGI_DOGGO_02",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-03.png",
-                    "name": "KAGI_DOGGO_03",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-04.png",
-                    "name": "KAGI_DOGGO_04",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-05.png",
-                    "name": "KAGI_DOGGO_05",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-06.png",
-                    "name": "KAGI_DOGGO_06",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-07.png",
-                    "name": "KAGI_DOGGO_07",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-08.png",
-                    "name": "KAGI_DOGGO_08",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-09.png",
-                    "name": "KAGI_DOGGO_09",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-10.png",
-                    "name": "KAGI_DOGGO_10",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-11.png",
-                    "name": "KAGI_DOGGO_11",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/doggo-100px-12.png",
-                    "name": "KAGI_DOGGO_12",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/ball-15px-01.png",
-                    "name": "KAGI_BALL_01",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/ball-15px-02.png",
-                    "name": "KAGI_BALL_02",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/ball-15px-03.png",
-                    "name": "KAGI_BALL_03",
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/ball-15px-04.png",
-                    "name": "KAGI_BALL_04",
-                    "type": "bitmap"
-                }
-            ]
+        {
+          "file": "images/doggo-100px-01.png",
+          "name": "KAGI_DOGGO_01",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-02.png",
+          "name": "KAGI_DOGGO_02",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-03.png",
+          "name": "KAGI_DOGGO_03",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-04.png",
+          "name": "KAGI_DOGGO_04",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-05.png",
+          "name": "KAGI_DOGGO_05",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-06.png",
+          "name": "KAGI_DOGGO_06",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-07.png",
+          "name": "KAGI_DOGGO_07",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-08.png",
+          "name": "KAGI_DOGGO_08",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-09.png",
+          "name": "KAGI_DOGGO_09",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-10.png",
+          "name": "KAGI_DOGGO_10",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-11.png",
+          "name": "KAGI_DOGGO_11",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/doggo-100px-12.png",
+          "name": "KAGI_DOGGO_12",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/ball-15px-01.png",
+          "name": "KAGI_BALL_01",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/ball-15px-02.png",
+          "name": "KAGI_BALL_02",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/ball-15px-03.png",
+          "name": "KAGI_BALL_03",
+          "type": "bitmap"
+        },
+        {
+          "file": "images/ball-15px-04.png",
+          "name": "KAGI_BALL_04",
+          "type": "bitmap"
         }
+      ]
     }
+  }
 }

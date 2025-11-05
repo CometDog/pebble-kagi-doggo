@@ -3,3 +3,5 @@ build
 .lock-waf*
 .vscode
 src/@pebble-libraries
+src/pkjs
+node_modules
