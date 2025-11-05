@@ -1,7 +1,12 @@
 #include "base.h"
+#include "main.h"
 
 uint16_t current_minute = 0;
 uint16_t current_hour = 0;
+
+GColor current_background_color;
+GColor current_dial_glyph_color;
+GColor current_arc_trail_color;
 
 /**
  * Update current minute
@@ -89,7 +94,7 @@ void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y
     uint8_t dash_length = 5;
     uint8_t gap_length = 5;
 
-    graphics_context_set_stroke_color(context, ARC_TRAIL_COLOR);
+    graphics_context_set_stroke_color(context, current_arc_trail_color);
     graphics_context_set_stroke_width(context, 1);
 
     // Calculate angle from which to start drawing lines
@@ -128,4 +133,35 @@ void update_bitmap(GBitmap **bitmap, const uint32_t resource_id)
         gbitmap_destroy(*bitmap);
     }
     *bitmap = gbitmap_create_with_resource(resource_id);
+}
+
+/**
+ * Initialize the theme system with light theme as default
+ */
+void init_theme()
+{
+    current_background_color = BACKGROUND_COLOR_LIGHT;
+    current_dial_glyph_color = DIAL_GLYPH_COLOR_LIGHT;
+    current_arc_trail_color = ARC_TRAIL_COLOR_LIGHT;
+}
+
+/**
+ * Set the theme based on the given theme name
+ * @param theme The theme name, e.g., "dark" or "light"
+ */
+void set_theme(char *theme)
+{
+    APP_LOG(APP_LOG_LEVEL_INFO, "Setting theme to: %s", theme);
+    if (theme != NULL && strcmp(theme, "dark") == 0)
+    {
+        current_background_color = BACKGROUND_COLOR_DARK;
+        current_dial_glyph_color = DIAL_GLYPH_COLOR_DARK;
+        current_arc_trail_color = ARC_TRAIL_COLOR_DARK;
+    }
+    else
+    {
+        current_background_color = BACKGROUND_COLOR_LIGHT;
+        current_dial_glyph_color = DIAL_GLYPH_COLOR_LIGHT;
+        current_arc_trail_color = ARC_TRAIL_COLOR_LIGHT;
+    }
 }

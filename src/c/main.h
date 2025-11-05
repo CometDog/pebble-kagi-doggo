@@ -1,11 +1,16 @@
+#pragma once
+
 #include "@pebble-libraries/debug-tick-timer-service/debug-tick-timer-service.h"
 #include "@pebble-libraries/pbl-stdlib/pbl-stdlib.h"
 #include "ball.h"
 #include "base.h"
 #include "doggo.h"
+#include "events.h"
 
-static Window *main_window;
-static Layer *background;
-static Layer *dial;
+extern Window *main_window;
+extern Layer *background;
+extern Layer *dial;
 
-static GFont kagi_font;
+extern GFont kagi_font;
+
+void redraw_all_assets();
