@@ -89,7 +89,7 @@ void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y
     uint8_t dash_length = 5;
     uint8_t gap_length = 5;
 
-    graphics_context_set_stroke_color(context, GColorBlack);
+    graphics_context_set_stroke_color(context, ARC_TRAIL_COLOR);
     graphics_context_set_stroke_width(context, 1);
 
     // Calculate angle from which to start drawing lines

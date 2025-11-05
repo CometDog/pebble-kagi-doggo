@@ -29,7 +29,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits _)
  */
 static void layer_update_dial(Layer *_, GContext *context)
 {
-    graphics_context_set_text_color(context, GColorBlack);
+    graphics_context_set_text_color(context, DIAL_GLYPH_COLOR);
+    graphics_context_set_fill_color(context, DIAL_GLYPH_COLOR);
 
     uint16_t digit_radius = BALL_ORBIT - 5;
 

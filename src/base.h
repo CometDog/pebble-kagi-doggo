@@ -4,12 +4,22 @@
 #include "pebble.h"
 
 #define DOGGO_SIZE 100
-#define BALL_SIZE 15
+#define BALL_SIZE 17
 #define SCALE (1.0f / 1024.0f)
 #ifdef PBL_PLATFORM_EMERY
-#define BALL_ORBIT ((DOGGO_SIZE / 2) + BALL_SIZE + 32)
+#define BALL_ORBIT ((DOGGO_SIZE / 2) + 45)
 #else
-#define BALL_ORBIT ((DOGGO_SIZE / 2) + BALL_SIZE + 4)
+#define BALL_ORBIT ((DOGGO_SIZE / 2) + 18)
+#endif
+
+#ifdef PBL_BW
+#define BACKGROUND_COLOR GColorWhite
+#define DIAL_GLYPH_COLOR GColorBlack
+#define ARC_TRAIL_COLOR GColorBlack
+#else
+#define BACKGROUND_COLOR GColorFromHEX(0x9DEBFE)
+#define DIAL_GLYPH_COLOR GColorBlack
+#define ARC_TRAIL_COLOR GColorBlack
 #endif
 
 void set_current_minute(uint8_t new_minute);
