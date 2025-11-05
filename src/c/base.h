@@ -30,6 +30,13 @@
 #define ARC_TRAIL_COLOR_DARK GColorWhite
 #endif
 
+#define PERSISTENT_SETTINGS_KEY 1
+
+typedef struct PersistentSettings
+{
+    bool is_dark_theme;
+} PersistentSettings;
+
 extern GColor current_background_color;
 extern GColor current_dial_glyph_color;
 extern GColor current_arc_trail_color;
@@ -46,3 +53,5 @@ void draw_dashed_arc_trail(GContext *context, int16_t center_x, int16_t center_y
 void update_bitmap(GBitmap **bitmap, const uint32_t resource_id);
 void set_theme(char *theme);
 void init_theme();
+void save_settings();
+void load_settings();

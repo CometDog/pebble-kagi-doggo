@@ -1,6 +1,8 @@
 #include "base.h"
 #include "main.h"
 
+static PersistentSettings settings;
+
 uint16_t current_minute = 0;
 uint16_t current_hour = 0;
 
@@ -136,23 +138,42 @@ void update_bitmap(GBitmap **bitmap, const uint32_t resource_id)
 }
 
 /**
+ * Save the settings to persistent storage
+ */
+void save_settings()
+{
+    persist_write_data(PERSISTENT_SETTINGS_KEY, settings);
+    APP_LOG(APP_LOG_LEVEL_INFO, "[C]: Settings saved to persistent storage");
+}
+
+/**
+ * Load the settings from persistent storage
+ */
+void load_settings()
+{
+    if (persist_exists(PERSISTENT_SETTINGS_KEY))
+    {
+        persist_read_data(PERSISTENT_SETTINGS_KEY, settings);
+        APP_LOG(APP_LOG_LEVEL_INFO, "[C]: Settings loaded from persistent storage. Dark theme: %s",
+                settings.is_dark_theme ? "enabled" : "disabled");
+    }
+    else
+    {
+        settings.is_dark_theme = false;
+        APP_LOG(APP_LOG_LEVEL_INFO, "[C]: No saved settings found, using defaults");
+    }
+}
+
+/**
  * Initialize the theme system with light theme as default
  */
 void init_theme()
 {
-    current_background_color = BACKGROUND_COLOR_LIGHT;
-    current_dial_glyph_color = DIAL_GLYPH_COLOR_LIGHT;
-    current_arc_trail_color = ARC_TRAIL_COLOR_LIGHT;
-}
+    // Load settings first
+    load_settings();
 
-/**
- * Set the theme based on the given theme name
- * @param theme The theme name, e.g., "dark" or "light"
- */
-void set_theme(char *theme)
-{
-    APP_LOG(APP_LOG_LEVEL_INFO, "Setting theme to: %s", theme);
-    if (theme != NULL && strcmp(theme, "dark") == 0)
+    // Apply the theme based on loaded settings
+    if (settings.is_dark_theme)
     {
         current_background_color = BACKGROUND_COLOR_DARK;
         current_dial_glyph_color = DIAL_GLYPH_COLOR_DARK;
@@ -164,4 +185,29 @@ void set_theme(char *theme)
         current_dial_glyph_color = DIAL_GLYPH_COLOR_LIGHT;
         current_arc_trail_color = ARC_TRAIL_COLOR_LIGHT;
     }
+}
+
+/**
+ * Set the theme based on the given theme name
+ * @param theme The theme name, e.g., "dark" or "light"
+ */
+void set_theme(char *theme)
+{
+    APP_LOG(APP_LOG_LEVEL_INFO, "Setting theme to: %s", theme);
+    if (theme != NULL && strcmp(theme, "dark") == 0)
+    {
+        settings.is_dark_theme = true;
+        current_background_color = BACKGROUND_COLOR_DARK;
+        current_dial_glyph_color = DIAL_GLYPH_COLOR_DARK;
+        current_arc_trail_color = ARC_TRAIL_COLOR_DARK;
+    }
+    else
+    {
+        settings.is_dark_theme = false;
+        current_background_color = BACKGROUND_COLOR_LIGHT;
+        current_dial_glyph_color = DIAL_GLYPH_COLOR_LIGHT;
+        current_arc_trail_color = ARC_TRAIL_COLOR_LIGHT;
+    }
+
+    save_settings();
 }
