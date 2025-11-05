@@ -14,17 +14,15 @@ GFont kagi_font;
  */
 static void tick_handler(struct tm *tick_time, TimeUnits _)
 {
-    set_current_hour(9);
-    set_current_minute(41);
     if (tick_time->tm_hour != get_current_hour())
     {
-        // set_current_hour(tick_time->tm_hour);
+        set_current_hour(tick_time->tm_hour);
         update_doggo();
     }
 
     if (tick_time->tm_min != get_current_minute())
     {
-        // set_current_minute(tick_time->tm_min);
+        set_current_minute(tick_time->tm_min);
         update_ball();
     }
 }
